@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Cuaca Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <div class="icon-header">
+                <i class="fa-solid fa-cloud-sun-rain"></i>
+            </div>
+            <h1>Prakiraan Cuaca</h1>
+            <p>Pantau cuaca di berbagai kota secara real-time</p>
+        </header>
+
+        <section class="search-section">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="cityInput" placeholder="Cari kota (cth: Malang, Jakarta)..." autocomplete="off">
+                <button id="searchBtn" onclick="getWeather()">
+                    <span>Cari</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="quick-cities">
+                <span class="chip-label">Populer:</span>
+                <button class="chip" onclick="searchPreset('Jakarta')">Jakarta</button>
+                <button class="chip" onclick="searchPreset('Surabaya')">Surabaya</button>
+                <button class="chip" onclick="searchPreset('Malang')">Malang</button>
+                <button class="chip" onclick="searchPreset('Bali')">Bali</button>
+            </div>
+        </section>
+
+        <div id="loading" class="loading-state hidden">
+            <div class="spinner"></div>
+            <p>Mengambil data cuaca...</p>
+        </div>
+
+        <section id="resultContainer" class="weather-card hidden">
+            <div class="location-header">
+                <div>
+                    <h2 id="cityName">--</h2>
+                    <span id="countryName" class="country-badge">--</span>
+                </div>
+                <div class="time-badge">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timezone">--</span>
+                </div>
+            </div>
+
+            <div class="main-temp-wrapper">
+                <div class="weather-icon-large" id="weatherIcon">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <div class="temp-display">
+                    <span id="temp">--</span><span class="unit">°C</span>
+                </div>
+                <p id="condition" class="weather-condition">--</p>
+            </div>
+
+            <div class="weather-stats-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-wind stat-icon wind-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-label">Kecepatan Angin</span>
+                        <span id="windSpeed" class="stat-value">-- km/jam</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <i class="fa-solid fa-compass stat-icon compass-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-label">Arah Angin</span>
+                        <span id="windDir" class="stat-value">--°</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <i class="fa-solid fa-mountain stat-icon elevation-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-label">Elevasi</span>
+                        <span id="elevation" class="stat-value">-- m</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <i class="fa-solid fa-location-crosshairs stat-icon geo-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-label">Koordinat</span>
+                        <span id="coords" class="stat-value">--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="errorContainer" class="error-card hidden">
+            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+            <div>
+                <h3>Kota Tidak Ditemukan</h3>
+                <p>Periksa kembali ejaan nama kota yang Anda masukkan.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
